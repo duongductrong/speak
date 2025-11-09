@@ -39,17 +39,16 @@ jobs:
       - name: Build web
         run: pnpm turbo run build --filter=web...
 
-      - name: Build for Vercel output
-        run: |
-          npm install -g vercel
-          vercel build --cwd apps/web --token ${{ secrets.VERCEL_TOKEN }}
-
       - name: Deploy web to vercel
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
         run: |
-          vercel deploy --prebuilt --cwd apps/web --prod \
-            --token $VERCEL_TOKEN \
-            --scope $VERCEL_ORG_ID
+          npm install -g vercel
+
+          mkdir -p apps/web/.vercel
+          echo '{"projectId":"$VERCEL_PROJECT_ID","orgId":"$VERCEL_ORG_ID","projectName":"speak"}' > apps/web/.vercel/project.json
+
+          vercel build --cwd apps/web --token $VERCEL_TOKEN
+          vercel deploy --prebuilt --cwd apps/web --prod --token $VERCEL_TOKEN
