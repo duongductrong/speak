@@ -48,5 +48,5 @@ jobs:
           npm install -g vercel
           vercel deploy --prebuilt --cwd apps/web --prod \
             --token $VERCEL_TOKEN \
-            --org $VERCEL_ORG_ID \
+            --scope $VERCEL_ORG_ID \
             --project $VERCEL_PROJECT_ID
