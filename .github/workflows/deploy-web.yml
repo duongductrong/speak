@@ -9,7 +9,8 @@ on:
       - "packages/**"
       - "turbo.json"
       - "pnpm-lock.yaml"
-      - "./.github/workflows/deploy-web.yml"
+      - ".github/workflows/deploy-web.yml"
+    workflow_dispatch:
 
 jobs:
   deploy-web:
