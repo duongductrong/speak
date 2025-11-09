@@ -36,9 +36,6 @@ jobs:
           npm install -g pnpm
           pnpm install --frozen-lockfile
 
-      - name: Build web
-        run: pnpm turbo run build --filter=web...
-
       - name: Deploy web to vercel
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
@@ -47,7 +44,9 @@ jobs:
         run: |
           npm install -g vercel
 
+          # Create project config for apps/web
           mkdir -p apps/web/.vercel
           echo "{\"projectId\":\"$VERCEL_PROJECT_ID\",\"orgId\":\"$VERCEL_ORG_ID\"}" > apps/web/.vercel/project.json
 
-          vercel deploy --prebuilt --cwd apps/web --prod --token $VERCEL_TOKEN
+          # Deploy from apps/web - vercel.json handles monorepo build from root
+          vercel deploy --cwd apps/web --prod --token=$VERCEL_TOKEN
