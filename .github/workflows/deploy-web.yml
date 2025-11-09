@@ -31,22 +31,21 @@ jobs:
           node-version: "22.1.0"
           cache: "pnpm"
 
-      - name: Install dependencies
-        run: |
-          npm install -g pnpm
-          pnpm install --frozen-lockfile
-
-      - name: Deploy web to vercel
+      - name: Pull Vercel Environment Information
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
         run: |
           npm install -g vercel
+          vercel pull --yes --environment=production --token=$VERCEL_TOKEN
 
-          # Create project config for apps/web
-          mkdir -p apps/web/.vercel
-          echo "{\"projectId\":\"$VERCEL_PROJECT_ID\",\"orgId\":\"$VERCEL_ORG_ID\"}" > apps/web/.vercel/project.json
+      - name: Build with Vercel
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: vercel build --prod --token=$VERCEL_TOKEN
 
-          # Deploy from apps/web - vercel.json handles monorepo build from root
-          vercel deploy --cwd apps/web --prod --token=$VERCEL_TOKEN
+      - name: Deploy to Vercel
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
