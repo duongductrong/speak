@@ -31,14 +31,24 @@ jobs:
           node-version: "22.1.0"
           cache: "pnpm"
 
-      - name: Pull Vercel Environment Information
+      - name: Install Vercel CLI
+        run: npm install -g vercel
+
+      - name: Create Vercel project link
         env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
         run: |
-          npm install -g vercel
-          vercel pull --yes --environment=production --token=$VERCEL_TOKEN
+          # Create .vercel/project.json to link to Vercel project
+          # IMPORTANT: Ensure "Root Directory" is set to "apps/web" in Vercel project settings
+          mkdir -p .vercel
+          echo "{\"projectId\":\"$VERCEL_PROJECT_ID\",\"orgId\":\"$VERCEL_ORG_ID\"}" > .vercel/project.json
+          cat .vercel/project.json
+
+      - name: Pull Vercel Environment Information
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: vercel pull --yes --environment=production --token=$VERCEL_TOKEN
 
       - name: Build with Vercel
         env:
