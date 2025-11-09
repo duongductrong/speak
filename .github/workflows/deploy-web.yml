@@ -48,7 +48,6 @@ jobs:
           npm install -g vercel
 
           mkdir -p apps/web/.vercel
-          echo '{"projectId":"$VERCEL_PROJECT_ID","orgId":"$VERCEL_ORG_ID","projectName":"speak"}' > apps/web/.vercel/project.json
+          echo "{\"projectId\":\"$VERCEL_PROJECT_ID\",\"orgId\":\"$VERCEL_ORG_ID\"}" > apps/web/.vercel/project.json
 
-          vercel build --cwd apps/web --token $VERCEL_TOKEN
           vercel deploy --prebuilt --cwd apps/web --prod --token $VERCEL_TOKEN
