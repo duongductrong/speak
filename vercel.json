@@ -5,5 +5,9 @@
       "src": "apps/web/package.json",
       "use": "@vercel/next"
     }
-  ]
+  ],
+  "github": {
+    "enabled": false,
+    "silent": true
+  }
 }
