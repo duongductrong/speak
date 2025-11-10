@@ -11,6 +11,7 @@ on:
       - "pnpm-lock.yaml"
       - ".github/workflows/deploy-web.yml"
     workflow_dispatch:
+    pull_request:
 
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
@@ -48,6 +49,7 @@ jobs:
           github-comment: false
           vercel-args: "--prod"
           github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          working-directory: apps/web
 
       # - name: Install Vercel CLI
       #   run: npm install -g vercel
