@@ -14,7 +14,8 @@
     "@speak/ui": "workspace:*",
     "next": "^16.0.0",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react-dom": "^19.2.0",
+    "react-speech-recognition": "^4.0.1"
   },
   "devDependencies": {
     "@speak/eslint-config": "workspace:*",
@@ -22,6 +23,7 @@
     "@types/node": "^22.15.3",
     "@types/react": "19.2.2",
     "@types/react-dom": "19.2.2",
+    "@types/react-speech-recognition": "^3.9.6",
     "eslint": "^9.39.1",
     "typescript": "5.9.2"
   }
