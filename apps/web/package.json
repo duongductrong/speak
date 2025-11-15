@@ -12,14 +12,18 @@
   },
   "dependencies": {
     "@speak/ui": "workspace:*",
+    "@tailwindcss/postcss": "^4.1.17",
     "next": "^16.0.0",
+    "postcss": "^8.5.6",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "react-speech-recognition": "^4.0.1"
+    "react-speech-recognition": "^4.0.1",
+    "tailwindcss": "^4.1.17"
   },
   "devDependencies": {
     "@speak/eslint-config": "workspace:*",
     "@speak/typescript-config": "workspace:*",
+    "@speak/tailwind-config": "workspace:*",
     "@types/node": "^22.15.3",
     "@types/react": "19.2.2",
     "@types/react-dom": "19.2.2",

@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+
+import "@speak/ui/globals.css"
 import "./globals.css";
 
 const geistSans = localFont({
