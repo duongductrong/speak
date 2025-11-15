@@ -15,7 +15,9 @@ const Page = (props: Props) => {
     listening,
     resetTranscript,
     browserSupportsSpeechRecognition,
-  } = useSpeechRecognition();
+  } = useSpeechRecognition({
+    transcribing: true,
+  });
 
   if (!browserSupportsSpeechRecognition) {
     return <div>Browser does not support speech recognition</div>;
@@ -30,7 +32,7 @@ const Page = (props: Props) => {
             onClick={() =>
               listening
                 ? SpeechRecognition.stopListening()
-                : SpeechRecognition.startListening()
+                : SpeechRecognition.startListening({ continuous: true })
             }
             className={`px-12 py-4 rounded-full text-white font-medium shadow-lg transition-all duration-300 ${
               listening
@@ -98,7 +100,9 @@ const Page = (props: Props) => {
           {/* Controls */}
           <div className="mt-8 flex flex-wrap gap-3 justify-center">
             <Button
-              onClick={() => SpeechRecognition.startListening()}
+              onClick={() =>
+                SpeechRecognition.startListening({ continuous: true })
+              }
               disabled={listening}
               className="bg-emerald-500 hover:bg-emerald-600 text-white disabled:bg-gray-300"
             >
@@ -123,9 +127,7 @@ const Page = (props: Props) => {
           {/* Status Footer */}
           <div className="mt-6 text-center text-sm text-gray-500">
             Status:{" "}
-            <span
-              className={listening ? "text-emerald-500" : "text-gray-400"}
-            >
+            <span className={listening ? "text-emerald-500" : "text-gray-400"}>
               {listening ? "● Listening" : "○ Idle"}
             </span>
           </div>

@@ -1,5 +1,5 @@
 import Image, { type ImageProps } from "next/image";
-import { Button } from "@speak/ui/button";
+import { Button } from "@speak/ui";
 import styles from "./page.module.css";
 
 type Props = Omit<ImageProps, "src"> & {
