@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-empty-object-type */
 "use client";
 
-import { Button } from "@speak/ui/components/button";
+import { Button } from "@speak/ui";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
