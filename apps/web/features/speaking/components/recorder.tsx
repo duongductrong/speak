@@ -1,17 +1,17 @@
 "use client";
 
 import { cleanWord } from "@/app/utils/word";
-import { Card, cn, colors, Typography } from "@speak/ui";
+import { SoundFilled, SoundOutlined } from "@ant-design/icons";
+import { Button, Card, cn, colors } from "@speak/ui";
+import Image from "next/image";
 import { ComponentProps, useMemo, useState } from "react";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
+import { useSpeak } from "react-text-to-speech";
 import { useDebounce } from "react-use";
 import { SPEAKING_STATUS } from "../constant";
 import RecorderActions from "./recoreder-actions";
-import Image from "next/image";
-
-const { Paragraph } = Typography;
 
 export interface SpeakingRecorderProps extends ComponentProps<"div"> {
   words: string[];
@@ -26,6 +26,8 @@ export const SpeakingRecorder = ({
   const { listening, resetTranscript, finalTranscript } = useSpeechRecognition({
     clearTranscriptOnListen: true,
   });
+
+  const { speak, stop, speechStatus } = useSpeak();
 
   useDebounce(
     () => {
@@ -47,6 +49,17 @@ export const SpeakingRecorder = ({
     resetTranscript();
     SpeechRecognition.startListening({
       continuous: true,
+    });
+  };
+
+  const handleStartSpeech = () => {
+    stop();
+    speak(words.join(" "), {
+      rate: 1,
+      lang: "en-US",
+      pitch: 1,
+      volume: 1,
+      voiceURI: "Google US English",
     });
   };
 
@@ -116,6 +129,14 @@ export const SpeakingRecorder = ({
       </div>
 
       <div className="w-full flex items-center justify-center text-center flex-wrap gap-2 min-h-32">
+        <Button type="text" size="small" onClick={handleStartSpeech}>
+          {speechStatus === "started" ? (
+            <SoundFilled style={{ fontSize: 24 }} />
+          ) : (
+            <SoundOutlined style={{ fontSize: 24 }} />
+          )}
+        </Button>
+
         {wordStatuses.map((item, index) => (
           <p
             key={`${item.word}-${index}`}
