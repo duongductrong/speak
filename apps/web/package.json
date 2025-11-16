@@ -11,16 +11,19 @@
     "check-types": "next typegen && tsc --noEmit"
   },
   "dependencies": {
+    "@ant-design/cssinjs": "^1.24.0",
     "@ant-design/icons": "^5.5.2",
     "@ant-design/nextjs-registry": "^1.2.0",
     "@speak/ui": "workspace:*",
     "@tailwindcss/postcss": "^4.1.17",
     "antd": "^5.28.1",
+    "lucide-react": "^0.553.0",
     "next": "^16.0.0",
     "postcss": "^8.5.6",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-speech-recognition": "^4.0.1",
+    "react-use": "^17.6.0",
     "tailwindcss": "^4.1.17"
   },
   "devDependencies": {

@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 
-import { AntdRegistry } from "@ant-design/nextjs-registry";
+import { AntdProvider } from "@speak/ui";
 import "@speak/ui/globals.css";
-import { ConfigProvider } from "antd";
 import "./globals.css";
 
 const geistSans = localFont({
@@ -28,17 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <AntdRegistry>
-          <ConfigProvider
-            theme={{
-              token: {
-                colorPrimary: "#1c49ff",
-              },
-            }}
-          >
-            {children}
-          </ConfigProvider>
-        </AntdRegistry>
+        <AntdProvider>{children}</AntdProvider>
       </body>
     </html>
   );

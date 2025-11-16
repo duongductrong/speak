@@ -43,45 +43,37 @@ const Page = (props: Props) => {
         padding: "24px",
       }}
     >
-      <div style={{ width: "100%", maxWidth: "800px" }}>
-        {/* Status Indicator */}
-        <Flex justify="center" style={{ marginBottom: "24px" }}>
-          <Button
-            type="primary"
-            shape="round"
-            size="large"
-            icon={
-              listening ? (
-                <CheckOutlined style={{ fontSize: "32px" }} />
-              ) : (
-                <AudioOutlined style={{ fontSize: "32px" }} />
-              )
-            }
-            onClick={() =>
-              listening
-                ? SpeechRecognition.stopListening()
-                : SpeechRecognition.startListening({ continuous: true })
-            }
-            style={{
-              height: "80px",
-              padding: "0 48px",
-              backgroundColor: listening ? "#52c41a" : "#8c8c8c",
-              borderColor: listening ? "#52c41a" : "#8c8c8c",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          />
-        </Flex>
+      <div className="max-w-lg w-full">
+        <Card variant="outlined">
+          <Flex justify="center" style={{ marginBottom: "24px" }}>
+            <Button
+              type="primary"
+              shape="round"
+              size="large"
+              icon={
+                listening ? (
+                  <CheckOutlined style={{ fontSize: "32px" }} />
+                ) : (
+                  <AudioOutlined style={{ fontSize: "32px" }} />
+                )
+              }
+              onClick={() =>
+                listening
+                  ? SpeechRecognition.stopListening()
+                  : SpeechRecognition.startListening({ continuous: true })
+              }
+              style={{
+                height: "80px",
+                padding: "0 48px",
+                backgroundColor: listening ? "#52c41a" : "#8c8c8c",
+                borderColor: listening ? "#52c41a" : "#8c8c8c",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            />
+          </Flex>
 
-        {/* Transcript Card */}
-        <Card
-          bordered={false}
-          style={{
-            borderRadius: "24px",
-            boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
-          }}
-        >
           <Space direction="vertical" size="large" style={{ width: "100%" }}>
             {transcript ? (
               <>
@@ -125,7 +117,6 @@ const Page = (props: Props) => {
               </div>
             )}
 
-            {/* Controls */}
             <Flex
               gap="middle"
               wrap
@@ -161,7 +152,6 @@ const Page = (props: Props) => {
               </Button>
             </Flex>
 
-            {/* Status Footer */}
             <Flex justify="center" style={{ marginTop: "8px" }}>
               <Text type="secondary">
                 Status:{" "}
