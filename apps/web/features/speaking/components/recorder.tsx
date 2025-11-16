@@ -23,12 +23,7 @@ export const SpeakingRecorder = ({
 }: SpeakingRecorderProps) => {
   const [transcript, setTranscript] = useState<string>("");
 
-  const {
-    listening,
-    resetTranscript,
-    finalTranscript,
-    isMicrophoneAvailable,
-  } = useSpeechRecognition({
+  const { listening, resetTranscript, finalTranscript } = useSpeechRecognition({
     clearTranscriptOnListen: true,
   });
 
@@ -124,7 +119,8 @@ export const SpeakingRecorder = ({
         {wordStatuses.map((item, index) => (
           <p
             key={`${item.word}-${index}`}
-            className={cn("text-3xl font-medium", getTagColor(item.status))}
+            style={{ color: getTagColor(item.status) }}
+            className={cn("text-3xl font-medium")}
           >
             {item.word}
           </p>
