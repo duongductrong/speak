@@ -23,8 +23,9 @@
     "typescript": "5.9.2"
   },
   "dependencies": {
-    "@speak/tailwind-config": "workspace:*",
     "@radix-ui/react-slot": "^1.2.4",
+    "@speak/tailwind-config": "workspace:*",
+    "antd": "^5.28.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.553.0",

@@ -5,3 +5,17 @@ Use the latest version of Shadcn to install new components, like this command to
 ```bash
 pnpx shadcn@latest add button
 ```
+
+# Ant Design instructions
+
+Use the latest version of Ant Design to install new components, like this command to add a button component:
+
+```bash
+pnpm add @ant-design/icons
+```
+
+Use the antd components via the @speak/ui package, like this:
+
+```tsx
+import { Button, Tag, Typography } from "@speak/ui";
+```

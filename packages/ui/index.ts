@@ -1,2 +1,3 @@
-export * from "./src/components/button";
+export * from "antd";
+
 export * from "./src/lib/utils";

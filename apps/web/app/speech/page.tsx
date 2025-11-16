@@ -2,14 +2,14 @@
 /* eslint-disable @typescript-eslint/no-empty-object-type */
 "use client";
 
-import { Button, Card, Space, Typography, Badge, Flex } from "antd";
 import {
-  CheckOutlined,
   AudioOutlined,
-  ReloadOutlined,
-  PlayCircleOutlined,
+  CheckOutlined,
   PauseCircleOutlined,
+  PlayCircleOutlined,
+  ReloadOutlined,
 } from "@ant-design/icons";
+import { Badge, Button, Card, Flex, Space, Typography } from "@speak/ui";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
@@ -140,10 +140,6 @@ const Page = (props: Props) => {
                   SpeechRecognition.startListening({ continuous: true })
                 }
                 disabled={listening}
-                style={{
-                  backgroundColor: listening ? undefined : "#52c41a",
-                  borderColor: listening ? undefined : "#52c41a",
-                }}
               >
                 Start Listening
               </Button>
@@ -162,7 +158,7 @@ const Page = (props: Props) => {
                 onClick={resetTranscript}
               >
                 Reset
-        </Button>
+              </Button>
             </Flex>
 
             {/* Status Footer */}

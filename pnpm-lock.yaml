@@ -484,6 +484,9 @@ importers:
       '@speak/tailwind-config':
         specifier: workspace:*
         version: link:../tailwind-config
+      antd:
+        specifier: ^5.28.1
+        version: 5.28.1(luxon@3.5.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
