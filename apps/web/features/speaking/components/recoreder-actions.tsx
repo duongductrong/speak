@@ -28,7 +28,7 @@ const RecorderActions = ({
       <div className="flex items-center gap-2">
         <Badge
           status={listening ? "processing" : "default"}
-          text={listening ? "Listening" : "Press to start"}
+          text={listening ? "Listening" : "Click to speak"}
           onClick={onStartListening}
           className="cursor-pointer"
         />

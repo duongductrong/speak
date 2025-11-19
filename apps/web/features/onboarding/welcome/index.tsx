@@ -22,22 +22,22 @@ const Welcome = ({ className, ...props }: WelcomeProps) => {
       className={cn("flex items-center justify-center min-h-screen", className)}
       {...props}
     >
-      <div className="text-center max-w-2xl px-6">
-        <Space direction="vertical" size="large" className="w-full">
+      <div className="text-center max-w-xl px-6">
+        <Space direction="vertical" size="middle" className="w-full">
           {/* Icon */}
-          <div className="flex justify-center mb-4">
-            <div className="w-24 h-24 bg-primary/10 rounded-full flex items-center justify-center">
-              <SoundOutlined className="text-5xl text-primary" />
+          <div className="flex justify-center mb-2">
+            <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center">
+              <SoundOutlined className="text-3xl text-primary" />
             </div>
           </div>
 
           {/* Welcome Title */}
-          <Title level={1} className="!mb-4 !text-5xl">
+          <Title level={1}>
             Welcome to Speak
           </Title>
 
           {/* Description */}
-          <Paragraph style={{ fontSize: "18px" }}>
+          <Paragraph>
             Practice your speaking skills with real-time speech recognition.
             Start your journey to fluent speaking today!
           </Paragraph>
@@ -49,7 +49,6 @@ const Welcome = ({ className, ...props }: WelcomeProps) => {
             icon={<ArrowRightOutlined />}
             iconPosition="end"
             onClick={handleStartPractice}
-            className="!h-14 !px-12 !text-lg font-semibold"
           >
             Start Practice
           </Button>

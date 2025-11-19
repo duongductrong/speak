@@ -112,7 +112,7 @@ export const SpeakingRecorder = ({
   return (
     <Card
       {...props}
-      title="U1L11 - Section 1 - Speaking 2"
+      title="Speaking 2"
       className="max-w-2xl w-full"
       variant="outlined"
       actions={[

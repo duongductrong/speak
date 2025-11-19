@@ -35,8 +35,8 @@ export const AntdProvider = ({
         <ConfigProvider
           theme={{
             token: {
-              colorPrimary: "#1c49ff",
-              borderRadius: 10,
+              // colorPrimary: "#1c49ff",
+              borderRadius: 8,
             },
           }}
         >
