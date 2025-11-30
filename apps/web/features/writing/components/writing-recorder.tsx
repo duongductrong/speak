@@ -35,7 +35,7 @@ const WritingRecorder = ({
   const selectRandomText = useCallback((level: DifficultyLevel) => {
     const texts = PRACTICE_TEXTS[level];
     const randomText = texts[Math.floor(Math.random() * texts.length)];
-    setTargetText(randomText);
+    setTargetText(randomText || "");
   }, []);
 
   useEffect(() => {

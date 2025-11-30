@@ -188,6 +188,10 @@
     font-family: var(--font-ibm-plex-sans), sans-serif;
   }
 
+  .font-heading {
+    font-family: var(--font-bricolage-grotesque), sans-serif;
+  }
+
   /* Cursor blink animation */
   .animate-cursor-blink {
     animation: cursor-blink 1s ease-in-out infinite;

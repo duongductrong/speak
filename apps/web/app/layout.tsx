@@ -1,8 +1,15 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Sans, JetBrains_Mono } from "next/font/google";
+import { Bricolage_Grotesque, IBM_Plex_Sans, JetBrains_Mono } from "next/font/google";
 
 import "@speak/ui/globals.css";
 import "./globals.css";
+
+const bricolageGrotesque = Bricolage_Grotesque({
+  subsets: ["latin"],
+  weight: ["200", "300", "400", "500", "600", "700", "800"],
+  variable: "--font-bricolage-grotesque",
+  display: "swap",
+});
 
 const ibmPlexSans = IBM_Plex_Sans({
   subsets: ["latin"],
@@ -29,7 +36,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${ibmPlexSans.variable} ${jetbrainsMono.variable}`}>
+    <html lang="en" className={`${bricolageGrotesque.variable} ${ibmPlexSans.variable} ${jetbrainsMono.variable}`}>
       <body className="font-sans antialiased">
         {children}
       </body>
