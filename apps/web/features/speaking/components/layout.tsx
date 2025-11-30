@@ -4,7 +4,7 @@ export interface SpeakingLayoutProps extends ComponentProps<"div"> {}
 
 export const SpeakingLayout = ({ children, ...props }: SpeakingLayoutProps) => {
   return (
-    <div {...props} className="h-screen w-full flex justify-center items-center bg-muted">
+    <div {...props} className="h-screen w-full flex justify-center items-center gradient-mesh p-4">
       {children}
     </div>
   );

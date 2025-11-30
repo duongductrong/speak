@@ -1,24 +1,12 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-empty-object-type */
 "use client";
 
-import {
-  AudioOutlined,
-  CheckOutlined,
-  PauseCircleOutlined,
-  PlayCircleOutlined,
-  ReloadOutlined,
-} from "@ant-design/icons";
-import { Badge, Button, Card, Flex, Space, Typography } from "@speak/ui";
+import { Badge, Button, Card, CardContent, CardHeader, CardTitle, cn } from "@speak/ui";
+import { Check, Mic, Pause, Play, RotateCcw } from "lucide-react";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
 
-const { Text, Title } = Typography;
-
-type Props = {};
-
-const Page = (props: Props) => {
+const Page = () => {
   const {
     transcript,
     listening,
@@ -29,141 +17,115 @@ const Page = (props: Props) => {
   });
 
   if (!browserSupportsSpeechRecognition) {
-    return <div>Browser does not support speech recognition</div>;
+    return (
+      <div className="min-h-screen gradient-mesh flex items-center justify-center p-6">
+        <Card className="max-w-md">
+          <CardHeader>
+            <CardTitle className="text-destructive">Not Supported</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-muted-foreground">
+              Your browser does not support speech recognition. Please try using Chrome or Edge.
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+    );
   }
 
-  return (
-    <div
-      style={{
-        minHeight: "100vh",
-        background: "#f5f5f5",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "24px",
-      }}
-    >
-      <div className="max-w-lg w-full">
-        <Card variant="outlined">
-          <Flex justify="center" style={{ marginBottom: "24px" }}>
-            <Button
-              type="primary"
-              shape="round"
-              size="large"
-              icon={
-                listening ? (
-                  <CheckOutlined style={{ fontSize: "32px" }} />
-                ) : (
-                  <AudioOutlined style={{ fontSize: "32px" }} />
-                )
-              }
-              onClick={() =>
-                listening
-                  ? SpeechRecognition.stopListening()
-                  : SpeechRecognition.startListening({ continuous: true })
-              }
-              style={{
-                height: "80px",
-                padding: "0 48px",
-                backgroundColor: listening ? "#52c41a" : "#8c8c8c",
-                borderColor: listening ? "#52c41a" : "#8c8c8c",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            />
-          </Flex>
+  const handleToggleListening = () => {
+    if (listening) {
+      SpeechRecognition.stopListening();
+    } else {
+      SpeechRecognition.startListening({ continuous: true });
+    }
+  };
 
-          <Space direction="vertical" size="large" style={{ width: "100%" }}>
+  return (
+    <div className="min-h-screen gradient-mesh flex items-center justify-center p-6">
+      <Card className="max-w-2xl w-full animate-scale-in backdrop-blur-sm bg-card/95">
+        <CardHeader className="text-center">
+          <CardTitle className="text-3xl">Speech Recognition</CardTitle>
+        </CardHeader>
+
+        <CardContent className="space-y-8">
+          <div className="flex justify-center">
+            <Button
+              size="icon"
+              variant={listening ? "default" : "outline"}
+              onClick={handleToggleListening}
+              className={cn(
+                "w-20 h-20 rounded-full transition-all shadow-lg",
+                listening && "bg-green-600 hover:bg-green-700 animate-pulse"
+              )}
+            >
+              {listening ? (
+                <Check className="w-10 h-10" />
+              ) : (
+                <Mic className="w-10 h-10" />
+              )}
+            </Button>
+          </div>
+
+          <div className="space-y-4 min-h-32">
             {transcript ? (
-              <>
-                <Title
-                  level={2}
-                  style={{
-                    color: "#52c41a",
-                    margin: 0,
-                    fontSize: "28px",
-                    lineHeight: 1.6,
-                  }}
-                >
+              <div className="space-y-3 animate-fade-in">
+                <p className="text-3xl font-medium leading-relaxed text-green-600 dark:text-green-400">
                   {transcript}
-                </Title>
-                <Title
-                  level={3}
-                  style={{
-                    color: "#595959",
-                    margin: 0,
-                    fontWeight: 400,
-                    fontSize: "22px",
-                  }}
-                >
+                </p>
+                <p className="text-lg text-muted-foreground font-light">
                   {listening
                     ? "Keep speaking..."
                     : "Transcript captured successfully"}
-                </Title>
-              </>
+                </p>
+              </div>
             ) : (
-              <div style={{ textAlign: "center", padding: "48px 0" }}>
-                <Text
-                  style={{
-                    fontSize: "24px",
-                    color: "#bfbfbf",
-                  }}
-                >
+              <div className="text-center py-12">
+                <p className="text-2xl text-muted-foreground/60">
                   {listening
                     ? "Listening... Start speaking"
                     : "Click the button above to start"}
-                </Text>
+                </p>
               </div>
             )}
+          </div>
 
-            <Flex
-              gap="middle"
-              wrap
-              justify="center"
-              style={{ marginTop: "16px" }}
+          <div className="flex flex-wrap gap-3 justify-center pt-4 border-t">
+            <Button
+              size="lg"
+              onClick={() =>
+                SpeechRecognition.startListening({ continuous: true })
+              }
+              disabled={listening}
             >
-              <Button
-                type="primary"
-                size="large"
-                icon={<PlayCircleOutlined />}
-                onClick={() =>
-                  SpeechRecognition.startListening({ continuous: true })
-                }
-                disabled={listening}
-              >
-                Start Listening
-              </Button>
-              <Button
-                type="default"
-                size="large"
-                icon={<PauseCircleOutlined />}
-                onClick={() => SpeechRecognition.stopListening()}
-                disabled={!listening}
-              >
-                Stop
-              </Button>
-              <Button
-                size="large"
-                icon={<ReloadOutlined />}
-                onClick={resetTranscript}
-              >
-                Reset
-              </Button>
-            </Flex>
+              <Play className="w-4 h-4" />
+              Start Listening
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              onClick={() => SpeechRecognition.stopListening()}
+              disabled={!listening}
+            >
+              <Pause className="w-4 h-4" />
+              Stop
+            </Button>
+            <Button size="lg" variant="outline" onClick={resetTranscript}>
+              <RotateCcw className="w-4 h-4" />
+              Reset
+            </Button>
+          </div>
 
-            <Flex justify="center" style={{ marginTop: "8px" }}>
-              <Text type="secondary">
-                Status:{" "}
-                <Badge
-                  status={listening ? "processing" : "default"}
-                  text={listening ? "Listening" : "Idle"}
-                />
-              </Text>
-            </Flex>
-          </Space>
-        </Card>
-      </div>
+          <div className="flex justify-center">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <span>Status:</span>
+              <Badge variant={listening ? "default" : "outline"}>
+                {listening ? "Listening" : "Idle"}
+              </Badge>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };

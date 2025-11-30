@@ -1,8 +1,8 @@
 "use client";
 
 import { cleanWord } from "@/app/utils/word";
-import { SoundFilled, SoundOutlined } from "@ant-design/icons";
-import { Button, Card, cn, colors } from "@speak/ui";
+import { Button, Card, CardContent, CardFooter, CardHeader, CardTitle, cn } from "@speak/ui";
+import { Volume2, VolumeX } from "lucide-react";
 import Image from "next/image";
 import { ComponentProps, useMemo, useState } from "react";
 import SpeechRecognition, {
@@ -87,16 +87,16 @@ export const SpeakingRecorder = ({
     });
   }, [words, transcript]);
 
-  const getTagColor = (
+  const getWordColorClass = (
     status: (typeof SPEAKING_STATUS)[keyof typeof SPEAKING_STATUS]
-  ) => {
+  ): string => {
     switch (status) {
       case SPEAKING_STATUS.CORRECT:
-        return colors.green[5];
+        return "text-green-600 dark:text-green-400";
       case SPEAKING_STATUS.INCORRECT:
-        return colors.red[5];
+        return "text-red-600 dark:text-red-400";
       default:
-        return colors.gray[5];
+        return "text-muted-foreground";
     }
   };
 
@@ -109,44 +109,67 @@ export const SpeakingRecorder = ({
     return (correctWords.length / totalWords) * 100;
   }, [wordStatuses]);
 
+  const isSpeaking = speechStatus === "started";
+
   return (
-    <Card
-      {...props}
-      title="Speaking 2"
-      className="max-w-2xl w-full"
-      variant="outlined"
-      actions={[
+    <Card {...props} className="max-w-2xl w-full backdrop-blur-sm bg-card/95 animate-scale-in">
+      <CardHeader>
+        <CardTitle className="text-2xl">Speaking Practice</CardTitle>
+      </CardHeader>
+
+      <CardContent className="space-y-6">
+        <div className="w-full justify-center flex">
+          <div className="relative">
+            <Image
+              src="/character.png"
+              alt="speaking"
+              width={100}
+              height={100}
+              className="animate-fade-in"
+            />
+          </div>
+        </div>
+
+        <div className="w-full flex items-center justify-center text-center flex-wrap gap-3 min-h-32 p-4 rounded-lg bg-muted/50">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={handleStartSpeech}
+            className={cn(
+              "transition-colors",
+              isSpeaking && "text-primary animate-pulse"
+            )}
+            aria-label={isSpeaking ? "Stop speaking" : "Start speaking"}
+          >
+            {isSpeaking ? (
+              <Volume2 className="w-6 h-6" />
+            ) : (
+              <VolumeX className="w-6 h-6" />
+            )}
+          </Button>
+
+          {wordStatuses.map((item, index) => (
+            <span
+              key={`${item.word}-${index}`}
+              className={cn(
+                "text-3xl font-medium transition-all duration-300",
+                getWordColorClass(item.status),
+                item.status === SPEAKING_STATUS.CORRECT && "scale-105"
+              )}
+            >
+              {item.word}
+            </span>
+          ))}
+        </div>
+      </CardContent>
+
+      <CardFooter className="border-t">
         <RecorderActions
           onStartListening={handleStartListening}
           listening={listening}
           matchPercentage={matchPercentage}
-          key="recorder-actions"
-        />,
-      ]}
-    >
-      <div className="w-full justify-center flex">
-        <Image src="/character.png" alt="speaking" width={100} height={100} />
-      </div>
-
-      <div className="w-full flex items-center justify-center text-center flex-wrap gap-2 min-h-32">
-        <Button type="text" size="small" onClick={handleStartSpeech}>
-          {speechStatus === "started" ? (
-            <SoundFilled style={{ fontSize: 24 }} />
-          ) : (
-            <SoundOutlined style={{ fontSize: 24 }} />
-          )}
-        </Button>
-
-        {wordStatuses.map((item, index) => (
-          <p
-            key={`${item.word}-${index}`}
-            style={{ color: getTagColor(item.status) }}
-            className={cn("text-3xl font-medium")}
-          >
-            {item.word}
-          </p>
-        ))}
-      </div>
+        />
+      </CardFooter>
     </Card>
   );
 };
