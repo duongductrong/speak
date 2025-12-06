@@ -17,7 +17,7 @@ export interface SpeakingPhrase {
   translation?: string;
 }
 
-export interface SessionStats {
+export interface ISessionStats {
   totalAttempts: number;
   correctWords: number;
   incorrectWords: number;

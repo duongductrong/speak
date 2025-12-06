@@ -1,9 +1,17 @@
 import { Badge, cn } from "@speak/ui";
-import { Briefcase, Coffee, MapPin, MessageCircle, MessageSquare, User } from "lucide-react";
+import {
+  Briefcase,
+  Coffee,
+  MapPin,
+  MessageCircle,
+  MessageSquare,
+  User,
+} from "lucide-react";
 import { ComponentProps } from "react";
 import { PhraseCategory } from "../types";
 
-export interface CategorySelectorProps extends ComponentProps<"div"> {
+export interface CategorySelectorProps
+  extends Omit<ComponentProps<"div">, "onSelect"> {
   selected?: PhraseCategory;
   onSelect: (category?: PhraseCategory) => void;
 }
@@ -28,8 +36,13 @@ export const CategorySelector = ({
   ...props
 }: CategorySelectorProps) => {
   return (
-    <div {...props} className={cn("flex gap-2 items-center flex-wrap", className)}>
-      <span className="text-sm font-medium text-muted-foreground">Category:</span>
+    <div
+      {...props}
+      className={cn("flex gap-2 items-center flex-wrap", className)}
+    >
+      <span className="text-sm font-medium text-muted-foreground">
+        Category:
+      </span>
       <div className="flex gap-2 flex-wrap">
         {CATEGORIES.map((category) => {
           const Icon = category.icon;
@@ -52,4 +65,3 @@ export const CategorySelector = ({
     </div>
   );
 };
-

@@ -1,3 +1,4 @@
+export * from "./types";
 export * from "./components/layout";
 export * from "./components/recorder";
 export * from "./components/session-stats";
@@ -10,5 +11,4 @@ export * from "./components/speaking-header";
 export * from "./hooks/use-phrase-selector";
 export * from "./hooks/use-speaking-session";
 export * from "./hooks/use-keyboard-shortcuts";
-export * from "./types";
 export * from "./data/phrases";
